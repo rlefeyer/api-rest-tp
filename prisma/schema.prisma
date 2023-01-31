@@ -27,7 +27,7 @@ model Article {
  quantity Int
  price Int 
  store Store? @relation(fields: [storeId], references: [id])
- storeId String?
+ storeId String? @db.ObjectId
  createdAt DateTime @default(now()) 
  updatedAt DateTime @updatedAt
 }
