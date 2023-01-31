@@ -23,7 +23,7 @@ export class StoresController {
   }
 
   @Get(':id/articles')
-  @ApiResponse({ status: 200, description: 'La liste des stores est bien retournés'})
+  @ApiResponse({ status: 200, description: 'La liste des articles du store est bien retournés'})
   @ApiResponse({ status: 403, description: "Vous n'aviez pas les autorisations nécessaires pour accéder à la ressource demandée."})
   findAllArticles(@Param('id') id: string) {
     return this.storesService.findAllArticles(id);
