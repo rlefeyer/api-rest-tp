@@ -3,4 +3,6 @@ export class Store {
   superficie: number;
   ville: string;
   siren: number;
+
+  employe: string;
 }

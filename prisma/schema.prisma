@@ -15,8 +15,9 @@ model Store {
   nom String
   superficie Int
   ville String
-  siren Int
+  siren Int?
   articles Article[]
+  employe String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

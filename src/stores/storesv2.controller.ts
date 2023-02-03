@@ -8,30 +8,30 @@ import {
   Delete,
 } from '@nestjs/common';
 import { StoresService } from './stores.service';
-import { CreateStoreDtoV1 } from './dto/create-store.dto';
-import { UpdateStoreDtoV1 } from './dto/update-store.dto';
+import { CreateStoreDtoV2 } from './dto/create-storeV2.dto';
+import { UpdateStoreDtoV2 } from './dto/update-storeV2.dto';
 import { ApiResponse } from '@nestjs/swagger';
 import { Store } from './entities/store.entity';
 
-@Controller('v1/stores')
-export class StoresControllerV1 {
+@Controller('v2/stores')
+export class StoresControllerV2 {
   constructor(private readonly storesService: StoresService) {}
 
-  private convertToEntityV1(obj: CreateStoreDtoV1): Store {
+  private convertToEntityV2(obj: CreateStoreDtoV2): Store {
     const store = new Store();
     store.nom = obj.nom;
     store.superficie = obj.superficie;
     store.ville = obj.ville;
-    store.siren = obj.siren;
+    store.employe = obj.employe;
     return store;
   }
 
-  private updateToEntityV1(obj: UpdateStoreDtoV1): Store {
+  private updateToEntityV2(obj: UpdateStoreDtoV2): Store {
     const store = new Store();
     store.nom = obj.nom;
     store.superficie = obj.superficie;
     store.ville = obj.ville;
-    store.siren = obj.siren;
+    store.employe = obj.employe;
     return store;
   }
   @Post()
@@ -39,8 +39,8 @@ export class StoresControllerV1 {
     status: 403,
     description: "Erreur 403 Forbidden : vous n'avez pas les accès nécessaires", // plain js object imported from another file
   })
-  create(@Body() createStoreDto: CreateStoreDtoV1) {
-    return this.storesService.create(this.convertToEntityV1(createStoreDto));
+  create(@Body() createStoreDto: CreateStoreDtoV2) {
+    return this.storesService.create(this.convertToEntityV2(createStoreDto));
   }
 
   @Get()
@@ -54,8 +54,8 @@ export class StoresControllerV1 {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStoreDto: UpdateStoreDtoV1) {
-    return this.storesService.update(id, this.updateToEntityV1(updateStoreDto));
+  update(@Param('id') id: string, @Body() updateStoreDto: UpdateStoreDtoV2) {
+    return this.storesService.update(id, this.updateToEntityV2(updateStoreDto));
   }
 
   @Delete(':id')

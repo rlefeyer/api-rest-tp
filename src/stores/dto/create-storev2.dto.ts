@@ -1,8 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateStoreDtoV1 } from './create-store.dto';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateStoreDtoV1 extends PartialType(CreateStoreDtoV1) {
+export class CreateStoreDtoV2 {
   @ApiProperty({ required: true, description: 'Le nom de votre boutique' })
   nom: string;
 
@@ -14,10 +12,9 @@ export class UpdateStoreDtoV1 extends PartialType(CreateStoreDtoV1) {
     description: 'La ville où est située la boutique',
   })
   ville: string;
-
   @ApiProperty({
-    required: false,
-    description: 'le numéro de SIREN de votre boutique (facultatif)',
+    required: true,
+    description: 'La ville où est située la boutique',
   })
-  siren: number;
+  employe: string;
 }

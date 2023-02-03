@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Store } from '../entities/store.entity';
 
-export class CreateStoreDto {
+export class CreateStoreDtoV1 {
   @ApiProperty({ required: true, description: 'Le nom de votre boutique' })
   nom: string;
 
@@ -19,13 +18,4 @@ export class CreateStoreDto {
     description: 'le numéro de SIREN de votre boutique (facultatif)',
   })
   siren: number;
-
-  public convertToEntity(): Store {
-    const store = new Store();
-    store.nom = this.nom;
-    store.superficie = this.superficie;
-    store.ville = this.ville;
-    store.siren = this.siren;
-    return store;
-  }
 }
