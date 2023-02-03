@@ -3,6 +3,7 @@ import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { ApiResponse } from '@nestjs/swagger';
+import { Article } from './entities/article.entity';
 
 @Controller('articles')
 export class ArticlesController {
@@ -18,7 +19,8 @@ export class ArticlesController {
     description: 'Erreur 400',
   })
   create(@Body() createArticleDto: CreateArticleDto) {
-    return this.articlesService.create(createArticleDto);
+    const entity = this.convertDtoToEntity(createArticleDto);
+    return this.articlesService.create(entity);
   }
 
   @Get()
@@ -39,5 +41,14 @@ export class ArticlesController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.articlesService.remove(id);
+  }
+
+  private convertDtoToEntity(dto: CreateArticleDto): Article {
+    const article = new Article();
+    article.name = dto.name;
+    article.quantity = dto.quantity;
+    article.price = dto.price;
+    article.storeId = dto.storeId;
+    return article;
   }
 }

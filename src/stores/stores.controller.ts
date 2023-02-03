@@ -3,6 +3,7 @@ import { StoresService } from './stores.service';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
 import { ApiResponse } from '@nestjs/swagger';
+import { Store } from './entities/store.entity';
 
 @Controller('stores')
 export class StoresController {
@@ -18,7 +19,8 @@ export class StoresController {
     description: 'Erreur 400',
   })
   create(@Body() createStoreDto: CreateStoreDto) {
-    return this.storesService.create(createStoreDto);
+    const entity = this.convertDtoToEntity(createStoreDto);
+    return this.storesService.create(entity);
   }
 
   @Get()
@@ -39,5 +41,14 @@ export class StoresController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.storesService.remove(id);
+  }
+
+  private convertDtoToEntity(dto: CreateStoreDto): Store {
+    const store = new Store();
+    store.name = dto.name;
+    store.area = dto.area;
+    store.city = dto.city;
+    store.siren = dto.siren;
+    return store;
   }
 }

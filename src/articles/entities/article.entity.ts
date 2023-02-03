@@ -1,1 +1,6 @@
-export class Article {}
+export class Article {
+    name: string;
+    quantity: number;
+    price: number;
+    storeId: string;
+}
