@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { StoresService } from './stores.service';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
-import { ApiCreatedResponse, ApiForbiddenResponse, ApiResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiForbiddenResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Stores')
 @Controller('stores')
 export class StoresController {
   constructor(private readonly storesService: StoresService) {}
