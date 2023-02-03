@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Get, Version } from '@nestjs/common/decorators';
 import { PrismaService } from 'prisma/prisma.service';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
@@ -11,6 +12,12 @@ export class StoresService {
   }
 
   findAll() {
+    return this.prisma.store.findMany();
+  }
+
+  @Version('2')
+  @Get()
+  findAllV2() {
     return this.prisma.store.findMany();
   }
 
