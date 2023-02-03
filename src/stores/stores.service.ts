@@ -6,32 +6,39 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class StoresService {
+
   constructor(private prisma: PrismaService) {}
 
   create(createStoreDto: CreateStoreDto) {
-    return this.prisma.store.create({data: createStoreDto});
+    return this.prisma.store.create({ data: createStoreDto });
+
   }
 
   findAll() {
     return this.prisma.store.findMany();
   }
 
-  findOne(id: string) {
+  findOne(storeId: string, ) {
     return this.prisma.store.findUnique({
-      where: {id}
-    });
+      where : {
+        id: storeId,
+      }
+    })
+    .articles();
   }
 
   update(id: string, updateStoreDto: UpdateStoreDto) {
     return this.prisma.store.update({
-      where: {id},
-      data: updateStoreDto,
+      where : {id},
+      data: updateStoreDto
     });
   }
 
   remove(id: string) {
-    return this.prisma.store.delete({
+    return this. prisma.store.delete({
       where: {id}
     });
   }
+
+
 }

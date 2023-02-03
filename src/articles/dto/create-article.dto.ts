@@ -11,4 +11,6 @@ export class CreateArticleDto {
     @ApiProperty({ required: true, description: "Le prix de l'article" })
     price: number;
 
+    @ApiProperty({ required: false, description: "article" })
+    storeId: string;
 }

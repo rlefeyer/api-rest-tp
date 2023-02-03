@@ -1,7 +1,6 @@
-export class Article {
+export class Order {
     name: string;
-    quantity: number;
+    date: Date;
     price: number;
     storeId: string;
 }
-

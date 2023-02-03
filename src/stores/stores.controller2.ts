@@ -1,12 +1,12 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { StoresService } from './stores.service';
-import { CreateStoreDto } from './dto/create-store.dto';
-import { UpdateStoreDto } from './dto/update-store.dto';
+import { CreateStore2Dto } from './dto/create-store2.dto';
+import { UpdateStore2Dto } from './dto/update-store2.dto';
 import { ApiResponse } from '@nestjs/swagger';
 import { Store } from 'src/stores/entities/store.entity';
 
-@Controller('v1stores')
-export class StoresController {
+@Controller('v2stores')
+export class StoresController2 {
   constructor(private readonly storesService: StoresService) {}
 
   @Post()
@@ -26,8 +26,8 @@ export class StoresController {
     status: 404,
     description: 'ressource non trouvée',
   })
-  create(@Body() createStoreDto: CreateStoreDto) {
-    const entity = this.convertDtoToEntity(createStoreDto);
+  create(@Body() CreateStore2Dto: CreateStore2Dto) {
+    const entity = this.convertDtoToEntity(CreateStore2Dto);
     return this.storesService.create(entity);
   }
 
@@ -42,8 +42,8 @@ export class StoresController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStoreDto: UpdateStoreDto) {
-    return this.storesService.update(id, updateStoreDto);
+  update(@Param('id') id: string, @Body() UpdateStore2Dto: UpdateStore2Dto) {
+    return this.storesService.update(id, UpdateStore2Dto);
   }
 
   @Delete(':id')
@@ -51,12 +51,12 @@ export class StoresController {
     return this.storesService.remove(id);
   }
 
-  private convertDtoToEntity(dto: CreateStoreDto): Store {
+  private convertDtoToEntity(dto: CreateStore2Dto): Store {
     const store = new Store();
     store.name = dto.name;
     store.area = dto.area;
     store.city = dto.city;
-    store.siren = dto.siren;
+    store.employees = dto.employees;
     return store;
   }
 }
