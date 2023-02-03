@@ -10,8 +10,8 @@ export class UpdateStoreDto extends PartialType(CreateStoreDto) {
     @ApiProperty({ required: true, description: "Adresse du store" })
     adress: string;
 
-    @ApiProperty({ required: true, description: "Numéro de siret du store" })
-    siret: string;
+    @ApiProperty({ required: true, description: "Numéro de siren du store" })
+    siren: string;
 
     @ApiProperty({ required: true, description: "Surperficie du store" })
     superficie: string;

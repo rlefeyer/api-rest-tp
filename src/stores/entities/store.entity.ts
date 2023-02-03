@@ -3,19 +3,22 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Store {
     
-    @PrimaryGeneratedColumn()
-    id: number;
+    // @PrimaryGeneratedColumn()
+    // id: number;
     
     @Column()
     name: string;
     
     @Column()
-    address: string;
+    adress: string;
 
     @Column()
-    siret: string;
+    siren: string;
 
     @Column()
     superficie: string;
+
+    @Column()
+    employe: string;
 
 }

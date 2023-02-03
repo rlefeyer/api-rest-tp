@@ -14,7 +14,8 @@ model Store {
   id String @default(auto()) @map("_id") @db.ObjectId @id
   name String
   adress  String
-  siret String
+  siren String?
+  employe String?
   superficie String
   articles Article[]
   createdAt DateTime @default(now())

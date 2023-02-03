@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateStoreDto } from './dto/create-store.dto';
-import { UpdateStoreDto } from './dto/update-store.dto';
 import { PrismaService } from 'src/prisma.service';
-import { Prisma } from '@prisma/client';
+import { Store } from './entities/store.entity';
 
 @Injectable()
 export class StoresService {
@@ -14,8 +12,12 @@ export class StoresService {
     return this.prisma.article.findMany({ where: { storeId: id } })
   }
 
-  create(createStoreDto: CreateStoreDto) {
-    return this.prisma.store.create({ data: createStoreDto });
+  create(entity: Store) {
+    return this.prisma.store.create({ data: entity });
+  }
+
+  createv2(entity: Store) {
+    return this.prisma.store.create({ data: entity });
   }
 
   findAll() {
@@ -26,9 +28,9 @@ export class StoresService {
     return this.prisma.store.findUnique({ where: { id: String(id) } });
   }
 
-  update(id: String, updateStoreDto: UpdateStoreDto) {
+  update(id: String, entity: Store) {
 
-    return this.prisma.store.update({where: { id: String(id) }, data: updateStoreDto });
+    return this.prisma.store.update({where: { id: String(id) }, data: entity });
   }
 
   remove(id: String) {
