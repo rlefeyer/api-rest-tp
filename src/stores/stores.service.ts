@@ -18,10 +18,13 @@ export class StoresService {
     return this.prisma.store.findMany();
   }
 
-  findOne(id: string) {
-    return this.prisma.store.findUniqueOrThrow({
-      where : {id}
-    });
+  findOne(storeId: string, ) {
+    return this.prisma.store.findUnique({
+      where : {
+        id: storeId,
+      }
+    })
+    .articles();
   }
 
   update(id: string, updateStoreDto: UpdateStoreDto) {
