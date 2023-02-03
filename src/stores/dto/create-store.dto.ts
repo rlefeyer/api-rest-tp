@@ -11,6 +11,6 @@ export class CreateStoreDto {
     city: string;
   
     @ApiProperty({ required: false, description: "siren du magasin" })
-    siren: string;
+    siren: string;    
 }
 
