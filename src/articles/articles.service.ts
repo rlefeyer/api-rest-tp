@@ -1,18 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Article } from './entities/article.entity';
 
 @Injectable()
 export class ArticlesService {
   constructor(private prisma: PrismaService) {}
 
-  create(createArticleDto: CreateArticleDto) {
-    return this.prisma.article.create({ data: createArticleDto,
-      author: {
-        connect: { store_id: '63d91523b858a57ff5704219' }
-      }
-    });
+  create(entity: Article) {
+    return this.prisma.article.create({ data: entity });
+
   }
 
   findAll() {
@@ -20,23 +17,21 @@ export class ArticlesService {
   }
 
   findOne(id: string) {
-    return this.prisma.store.findUnique({
-      where: {
-        id,
-      },
+    return this.prisma.article.findUniqueOrThrow({
+      where : {id}
     });
   }
 
-  update(id: string, updateStoreDto: UpdateArticleDto) {
+  update(id: string, updateArticleDto: UpdateArticleDto) {
     return this.prisma.article.update({
-      where: { id },
-      data: updateStoreDto,
+      where : {id},
+      data: updateArticleDto,
     });
   }
 
   remove(id: string) {
-    return this.prisma.article.delete({
-      where: { id },
+    return this. prisma.article.delete({
+      where: {id}
     });
   }
 }

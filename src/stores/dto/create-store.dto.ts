@@ -1,17 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class CreateStoreDto {
-  @ApiProperty({ required: true, description: 'Le nom du store' })
-  name: string;
-
-  @ApiProperty({ required: true, description: 'Superficie en m2' })
-  area: number;
-
-  @ApiProperty({ required: true, description: 'La ville du store' })
-  city: string;
-
-  @ApiProperty({ required: false })
-  siren: string;
+export class CreateStoreDto {  
+    @ApiProperty({ required: true, description: "nom du magasin" })
+    name: string;
+  
+    @ApiProperty({ required: true, description: "superficie du magasin" })
+    area: number;
+  
+    @ApiProperty({ required: true, description: "ville où se situe le magasin" })
+    city: string;
+  
+    @ApiProperty({ required: false, description: "siren du magasin" })
+    siren: string;    
 }
+
+
+
+

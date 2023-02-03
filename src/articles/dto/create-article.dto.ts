@@ -1,11 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity } from 'typeorm';
 
-@Entity()
-export class CreateArticleDto {
-    @ApiProperty({ required: true, description: "Le nom de l'article" })
+export class CreateArticleDto {  
+    @ApiProperty({ required: true, description: "nom de l'article" })
     name: string;
+  
+    @ApiProperty({ required: true, description: "quantité d'articles" })
+    quantity: number;
+  
+    @ApiProperty({ required: true, description: "prix de l'article" })
+    price: number;
 
-    @ApiProperty({ required: true, description: "Description de l'article" })
-    description: string;
+    @ApiProperty({ required: true, description: "relation avec un magasin" })
+    storeId: string;
+    
 }

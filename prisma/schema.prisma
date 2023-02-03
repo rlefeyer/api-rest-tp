@@ -13,15 +13,18 @@ model Store {
  area Int
  city String 
  siren String 
- createdAt DateTime @default(now()) 
+ articles Article[]
+ createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt
 }
 
 model Article {
  id String @id @default(auto()) @map("_id") @db.ObjectId
  name String
- description String
- store_id String
+ quantity Int
+ price Int
+ store Store? @relation(fields: [storeId], references: [id])
+ storeId String? @db.ObjectId
  createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt
 }
