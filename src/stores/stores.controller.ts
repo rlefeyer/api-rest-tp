@@ -1,8 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { StoresService } from './stores.service';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
-import {ApiResponse} from "@nestjs/swagger";
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('stores')
 export class StoresController {
@@ -11,10 +19,10 @@ export class StoresController {
   @Post()
   @ApiResponse({
     status: 403,
-    description: "Erreur 403 Forbidden : vous n'avez pas les accès nécessaires" // plain js object imported from another file
+    description: "Erreur 403 Forbidden : vous n'avez pas les accès nécessaires", // plain js object imported from another file
   })
   create(@Body() createStoreDto: CreateStoreDto) {
-    return this.storesService.create(createStoreDto);
+    return this.storesService.create(createStoreDto.convertToEntity());
   }
 
   @Get()
