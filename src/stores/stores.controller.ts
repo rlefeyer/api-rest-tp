@@ -11,9 +11,6 @@ import { CreateStoreDto2 } from './dto/create-store.dto2';
 export class StoresController {
   constructor(private readonly storesService: StoresService) {}
 
-
-
-
    convertDtoToEntityCreate(obj?: CreateStoreDto, obj2?: CreateStoreDto2): Store{
     let store = new Store()
 
