@@ -12,6 +12,7 @@ import { CreateStoreDtoV2 } from './dto/create-storeV2.dto';
 import { UpdateStoreDtoV2 } from './dto/update-storeV2.dto';
 import { ApiResponse } from '@nestjs/swagger';
 import { Store } from './entities/store.entity';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller('v2/stores')
 export class StoresControllerV2 {
@@ -37,12 +38,12 @@ export class StoresControllerV2 {
   @Post()
   @ApiResponse({
     status: 403,
-    description: "Erreur 403 Forbidden : vous n'avez pas les accès nécessaires", // plain js object imported from another file
+    description: "Erreur 403 Forbidden : vous n'avez pas les accès nécessaires",
   })
   create(@Body() createStoreDto: CreateStoreDtoV2) {
     return this.storesService.create(this.convertToEntityV2(createStoreDto));
   }
-
+  @Throttle(2, 60)
   @Get()
   findAll() {
     return this.storesService.findAll();
