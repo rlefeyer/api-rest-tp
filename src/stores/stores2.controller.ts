@@ -1,12 +1,12 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { StoresService } from './stores.service';
-import { CreateStoreDto } from './dto/create-store.dto';
-import { UpdateStoreDto } from './dto/update-store.dto';
+import { CreateStoreDto2 } from './dto/create-store2.dto';
+import { UpdateStoreDto2 } from './dto/update-store2.dto';
 import { ApiResponse } from '@nestjs/swagger';
 import { Store } from './entities/store.entity';
 
-@Controller('v1/stores')
-export class StoresController {
+@Controller('v2/stores')
+export class Stores2Controller {
   constructor(private readonly storesService: StoresService) {}
 
   @Post()
@@ -18,7 +18,7 @@ export class StoresController {
     status: 400,
     description: 'Erreur 400',
   })
-  create(@Body() createStoreDto: CreateStoreDto) {
+  create(@Body() createStoreDto: CreateStoreDto2) {
     const entity = this.convertDtoToEntity(createStoreDto);
     return this.storesService.create(entity);
   }
@@ -34,7 +34,7 @@ export class StoresController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStoreDto: UpdateStoreDto) {
+  update(@Param('id') id: string, @Body() updateStoreDto: UpdateStoreDto2) {
     return this.storesService.update(id, updateStoreDto);
   }
 
@@ -43,12 +43,12 @@ export class StoresController {
     return this.storesService.remove(id);
   }
 
-  private convertDtoToEntity(dto: CreateStoreDto): Store {
+  private convertDtoToEntity(dto: CreateStoreDto2): Store {
     const store = new Store();
     store.name = dto.name;
     store.area = dto.area;
     store.city = dto.city;
-    store.siren = dto.siren;
+    store.employees = dto.employees;
     return store;
   }
 }

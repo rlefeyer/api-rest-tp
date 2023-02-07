@@ -3,9 +3,10 @@ import { UpdateStoreDto } from './dto/update-store.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Store } from './entities/store.entity';
 
+
 @Injectable()
 export class StoresService {
-
+  
   constructor(private prisma: PrismaService) {}
 
   create(entity: Store) {
@@ -23,7 +24,7 @@ export class StoresService {
         id: storeId,
       }
     })
-        .articles();
+    .articles();
   }
 
   update(id: string, updateStoreDto: UpdateStoreDto) {

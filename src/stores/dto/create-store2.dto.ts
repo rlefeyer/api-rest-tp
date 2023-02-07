@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateStoreDto {  
+export class CreateStoreDto2 {  
     @ApiProperty({ required: true, description: "nom du magasin" })
     name: string;
   
@@ -9,9 +9,11 @@ export class CreateStoreDto {
   
     @ApiProperty({ required: true, description: "ville où se situe le magasin" })
     city: string;
-  
-    @ApiProperty({ required: false, description: "siren du magasin" })
-    siren: string;    
+
+    @ApiProperty({ required: true, description: "nombre d'employés dans l'entreprise" })
+    employees: number;
 }
+
+
 
 

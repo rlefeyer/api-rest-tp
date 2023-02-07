@@ -3,6 +3,7 @@ export class Store {
     area: number;
     city: string;
     siren: string;    
+    employees: number;
 }
 
 

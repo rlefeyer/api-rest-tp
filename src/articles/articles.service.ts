@@ -9,6 +9,7 @@ export class ArticlesService {
 
   create(entity: Article) {
     return this.prisma.article.create({ data: entity });
+
   }
 
   findAll() {
@@ -17,20 +18,20 @@ export class ArticlesService {
 
   findOne(id: string) {
     return this.prisma.article.findUniqueOrThrow({
-      where: { id },
+      where : {id}
     });
   }
 
   update(id: string, updateArticleDto: UpdateArticleDto) {
     return this.prisma.article.update({
-      where: { id },
+      where : {id},
       data: updateArticleDto,
     });
   }
 
   remove(id: string) {
-    return this.prisma.article.delete({
-      where: { id },
+    return this. prisma.article.delete({
+      where: {id}
     });
   }
 }
