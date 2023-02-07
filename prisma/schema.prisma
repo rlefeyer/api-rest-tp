@@ -28,6 +28,8 @@ model Article {
  price Int 
  store Store? @relation(fields: [storeId], references: [id])
  storeId String? @db.ObjectId
+ order   Order?    @relation(fields: [orderId], references: [id])
+ orderId  String? @db.ObjectId
  createdAt DateTime @default(now()) 
  updatedAt DateTime @updatedAt
 }
@@ -36,6 +38,7 @@ model Order {
  id String @id @default(auto()) @map("_id") @db.ObjectId 
  numero String 
  status Status[]
+ articles Article[]
  quantity Int
  createdAt DateTime @default(now()) 
  updatedAt DateTime @updatedAt

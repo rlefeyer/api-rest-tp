@@ -12,11 +12,11 @@ export class ArticlesController {
   @Post()
   @ApiResponse({
     status: 200,
-    description: 'Création effectué',
+    description: 'Création de l\'article',
   })
   @ApiResponse({
-    status: 400,
-    description: 'Erreur 400',
+    status: 404,
+    description: 'Page introuvable',
   })
   create(@Body() createArticleDto: CreateArticleDto) {
     const entity = this.convertDtoToEntity(createArticleDto);
@@ -24,21 +24,54 @@ export class ArticlesController {
   }
 
   @Get()
+  @ApiResponse({
+    status: 200,
+    description: 'Voici tous les articles',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Page introuvable',
+  })
   findAll() {
     return this.articlesService.findAll();
   }
 
+  
   @Get(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'Voici l\'article demandé',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Page introuvable',
+  })
   findOne(@Param('id') id: string) {
     return this.articlesService.findOne(id);
   }
 
   @Patch(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'Article modifié',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Page introuvable',
+  })
   update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDto) {
     return this.articlesService.update(id, updateArticleDto);
   }
 
   @Delete(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'suppression de l\'article demandé',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Page introuvable',
+  })
   remove(@Param('id') id: string) {
     return this.articlesService.remove(id);
   }

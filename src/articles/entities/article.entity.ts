@@ -3,4 +3,5 @@ export class Article {
     quantity: number;
     price: number;
     storeId: string;
+    orderId: string;
 }
