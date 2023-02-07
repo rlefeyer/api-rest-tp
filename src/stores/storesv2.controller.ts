@@ -40,10 +40,10 @@ export class StoresControllerV2 {
     status: 403,
     description: "Erreur 403 Forbidden : vous n'avez pas les accès nécessaires",
   })
+  @Throttle(2, 60)
   create(@Body() createStoreDto: CreateStoreDtoV2) {
     return this.storesService.create(this.convertToEntityV2(createStoreDto));
   }
-  @Throttle(2, 60)
   @Get()
   findAll() {
     return this.storesService.findAll();
