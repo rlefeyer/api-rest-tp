@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Headers } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
@@ -16,8 +16,8 @@ export class OrdersController {
     return this.ordersService.create(createOrderDto);
   }
 
-  @Post('/createOrders10000')
-  createMany(@Body() createOrderDto: CreateOrderDto) {
+  @Post('/createOrders100')
+  async createMany(@Body() createOrderDto: CreateOrderDto, @Headers() headers: any) {
       return this.ordersService.createMany(createOrderDto);
   }
 

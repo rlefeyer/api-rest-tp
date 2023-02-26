@@ -1,16 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Version } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Version, UseGuards, Req, Res } from '@nestjs/common';
 import { StoresService } from './stores.service';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
-import { ApiCreatedResponse, ApiForbiddenResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Store } from './entities/store.entity';
 import { CreateStoreDto2 } from './dto/create-store.dto2';
+import { Throttle } from '@nestjs/throttler';
+import { ThrottlerGuard } from '@nestjs/throttler';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Stores')
+@ApiBearerAuth()
+@UseGuards(AuthGuard('jwt'))
 @Controller()
 export class StoresController {
   constructor(private readonly storesService: StoresService) {}
 
+  
    convertDtoToEntityCreate(obj?: CreateStoreDto, obj2?: CreateStoreDto2): Store{
     let store = new Store()
 
@@ -41,7 +47,6 @@ export class StoresController {
     store.siren = obj.siren;
     return store;
   }
-
   @Post('V1/stores')
   @ApiCreatedResponse({ description: "L'enregistrement a été créé avec succès."})
   @ApiForbiddenResponse({ description: "Forbidden."})
@@ -55,7 +60,7 @@ export class StoresController {
   @ApiForbiddenResponse({ description: "Forbidden."})
   createv2(@Body() createStoreDto: CreateStoreDto2) {
     
-    return this.storesService.createv2(this.convertDtoToEntityCreate(null, createStoreDto));
+    return this.storesService.createv2(this.convertDtoToEntityCreate2(createStoreDto));
   }
 
   @Get('/stores')
@@ -78,6 +83,7 @@ export class StoresController {
     return this.storesService.findOne(id);
   }
 
+  
   @Patch('/stores/:id')
   @ApiResponse({ status: 200, description: 'Le store à été modifié partiellement'})
   update(@Param('id') id: string, @Body() updateStoreDto: UpdateStoreDto) {
@@ -90,3 +96,4 @@ export class StoresController {
     return this.storesService.remove(id);
   }
 }
+
