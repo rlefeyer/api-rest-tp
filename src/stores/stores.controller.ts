@@ -6,13 +6,23 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { StoresService } from './stores.service';
 import { CreateStoreDtoV1 } from './dto/create-store.dto';
 import { UpdateStoreDtoV1 } from './dto/update-store.dto';
-import { ApiResponse } from '@nestjs/swagger';
 import { Store } from './entities/store.entity';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+} from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
+import { AuthGuard } from '@nestjs/passport';
 
+@ApiBearerAuth()
+@UseGuards(AuthGuard('jwt'))
+@Throttle(10, 60)
 @Controller('v1/stores')
 export class StoresControllerV1 {
   constructor(private readonly storesService: StoresService) {}
@@ -35,30 +45,38 @@ export class StoresControllerV1 {
     return store;
   }
   @Post()
-  @ApiResponse({
-    status: 403,
-    description: "Erreur 403 Forbidden : vous n'avez pas les accès nécessaires", // plain js object imported from another file
-  })
+  @ApiCreatedResponse({ description: 'Ajout du store avec succès.' })
+  @ApiForbiddenResponse({ description: 'Accès refusé.' })
   create(@Body() createStoreDto: CreateStoreDtoV1) {
     return this.storesService.create(this.convertToEntityV1(createStoreDto));
   }
 
   @Get()
+  @ApiCreatedResponse({ description: 'Retour des stores avec succès.' })
+  @ApiForbiddenResponse({ description: 'Accès refusé.' })
   findAll() {
     return this.storesService.findAll();
   }
 
   @Get(':id')
+  @ApiCreatedResponse({ description: 'Retour du store avec succès.' })
+  @ApiForbiddenResponse({ description: 'Accès refusé.' })
   findOne(@Param('id') id: string) {
     return this.storesService.findOne(id);
   }
 
   @Patch(':id')
+  @ApiCreatedResponse({
+    description: 'Mis à jour partielle du store avec succès.',
+  })
+  @ApiForbiddenResponse({ description: 'Accès refusé.' })
   update(@Param('id') id: string, @Body() updateStoreDto: UpdateStoreDtoV1) {
     return this.storesService.update(id, this.updateToEntityV1(updateStoreDto));
   }
 
   @Delete(':id')
+  @ApiCreatedResponse({ description: 'Suppression du store avec succès.' })
+  @ApiForbiddenResponse({ description: 'Accès refusé.' })
   remove(@Param('id') id: string) {
     return this.storesService.remove(id);
   }

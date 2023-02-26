@@ -6,14 +6,23 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { StoresService } from './stores.service';
-import { CreateStoreDtoV2 } from './dto/create-storeV2.dto';
-import { UpdateStoreDtoV2 } from './dto/update-storeV2.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { CreateStoreDtoV2 } from './dto/create-storev2.dto';
+import { UpdateStoreDtoV2 } from './dto/update-storev2.dto';
 import { Store } from './entities/store.entity';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+} from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
+import { AuthGuard } from '@nestjs/passport';
 
+@ApiBearerAuth()
+@UseGuards(AuthGuard('jwt'))
+@Throttle(10, 60)
 @Controller('v2/stores')
 export class StoresControllerV2 {
   constructor(private readonly storesService: StoresService) {}
@@ -36,30 +45,38 @@ export class StoresControllerV2 {
     return store;
   }
   @Post()
-  @ApiResponse({
-    status: 403,
-    description: "Erreur 403 Forbidden : vous n'avez pas les accès nécessaires",
-  })
-  @Throttle(2, 60)
+  @ApiCreatedResponse({ description: 'Ajout du store avec succès.' })
+  @ApiForbiddenResponse({ description: 'Accès refusé.' })
+  @Throttle(10, 60)
   create(@Body() createStoreDto: CreateStoreDtoV2) {
     return this.storesService.create(this.convertToEntityV2(createStoreDto));
   }
   @Get()
+  @ApiCreatedResponse({ description: 'Retour des stores avec succès.' })
+  @ApiForbiddenResponse({ description: 'Accès refusé.' })
   findAll() {
     return this.storesService.findAll();
   }
 
   @Get(':id')
+  @ApiCreatedResponse({ description: 'Retour du store avec succès.' })
+  @ApiForbiddenResponse({ description: 'Accès refusé.' })
   findOne(@Param('id') id: string) {
     return this.storesService.findOne(id);
   }
 
   @Patch(':id')
+  @ApiCreatedResponse({
+    description: 'Mis à jour partielle du store avec succès.',
+  })
+  @ApiForbiddenResponse({ description: 'Accès refusé.' })
   update(@Param('id') id: string, @Body() updateStoreDto: UpdateStoreDtoV2) {
     return this.storesService.update(id, this.updateToEntityV2(updateStoreDto));
   }
 
   @Delete(':id')
+  @ApiCreatedResponse({ description: 'Suppression du store avec succès.' })
+  @ApiForbiddenResponse({ description: 'Accès refusé.' })
   remove(@Param('id') id: string) {
     return this.storesService.remove(id);
   }

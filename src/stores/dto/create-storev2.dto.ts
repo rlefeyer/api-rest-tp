@@ -14,7 +14,7 @@ export class CreateStoreDtoV2 {
   ville: string;
   @ApiProperty({
     required: true,
-    description: 'La ville où est située la boutique',
+    description: 'Employé: ',
   })
   employe: string;
 }
