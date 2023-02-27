@@ -14,6 +14,7 @@ import { UpdateArticleDto } from './dto/update-article.dto';
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
+  ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -34,21 +35,21 @@ export class ArticlesController {
   }
 
   @Get()
-  @ApiCreatedResponse({ description: 'Retour des articles avec succès.' })
+  @ApiOkResponse({ description: 'Retour des articles avec succès.' })
   @ApiUnauthorizedResponse({ description: 'Accès refusé.' })
   findAll() {
     return this.articlesService.findAll();
   }
 
   @Get(':id')
-  @ApiCreatedResponse({ description: "Retour d'un article avec succès." })
+  @ApiOkResponse({ description: "Retour d'un article avec succès." })
   @ApiUnauthorizedResponse({ description: 'Accès refusé.' })
   findOne(@Param('id') id: string) {
     return this.articlesService.findOne(id);
   }
 
   @Patch(':id')
-  @ApiCreatedResponse({
+  @ApiOkResponse({
     description: "Modification partielle de l'article avec succès.",
   })
   @ApiUnauthorizedResponse({ description: 'Accès refusé.' })
@@ -57,7 +58,7 @@ export class ArticlesController {
   }
 
   @Delete(':id')
-  @ApiCreatedResponse({ description: "Suppression d'un article avec succès." })
+  @ApiOkResponse({ description: "Suppression d'un article avec succès." })
   @ApiUnauthorizedResponse({ description: 'Accès refusé.' })
   remove(@Param('id') id: string) {
     return this.articlesService.remove(+id);

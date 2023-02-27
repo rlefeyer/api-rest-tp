@@ -15,6 +15,7 @@ import { Store } from './entities/store.entity';
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
+  ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
@@ -52,21 +53,21 @@ export class StoresControllerV2 {
     return this.storesService.create(this.convertToEntityV2(createStoreDto));
   }
   @Get()
-  @ApiCreatedResponse({ description: 'Retour des stores avec succès.' })
+  @ApiOkResponse({ description: 'Retour des stores avec succès.' })
   @ApiUnauthorizedResponse({ description: 'Accès refusé.' })
   findAll() {
     return this.storesService.findAll();
   }
 
   @Get(':id')
-  @ApiCreatedResponse({ description: 'Retour du store avec succès.' })
+  @ApiOkResponse({ description: 'Retour du store avec succès.' })
   @ApiUnauthorizedResponse({ description: 'Accès refusé.' })
   findOne(@Param('id') id: string) {
     return this.storesService.findOne(id);
   }
 
   @Patch(':id')
-  @ApiCreatedResponse({
+  @ApiOkResponse({
     description: 'Mis à jour partielle du store avec succès.',
   })
   @ApiUnauthorizedResponse({ description: 'Accès refusé.' })
@@ -75,7 +76,7 @@ export class StoresControllerV2 {
   }
 
   @Delete(':id')
-  @ApiCreatedResponse({ description: 'Suppression du store avec succès.' })
+  @ApiOkResponse({ description: 'Suppression du store avec succès.' })
   @ApiUnauthorizedResponse({ description: 'Accès refusé.' })
   remove(@Param('id') id: string) {
     return this.storesService.remove(id);
