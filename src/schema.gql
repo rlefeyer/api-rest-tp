@@ -1,0 +1,87 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateAddressInput {
+  """ville"""
+  city: String!
+
+  """pays"""
+  country: String!
+
+  """id de l'adresse"""
+  id: String!
+
+  """rue"""
+  street: String!
+
+  """code postal"""
+  zipcode: Int!
+}
+
+input CreatePersonInput {
+  """adresse de la personne"""
+  address: CreateAddressInput!
+
+  """date d'anniversaire de la personne"""
+  birthday: DateTime!
+
+  """genre de la personne"""
+  gender: String!
+
+  """id de la personne"""
+  id: String!
+
+  """nom de la personne"""
+  name: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createPerson(createPersonInput: CreatePersonInput!): Person!
+  removePerson(id: Int!): Person!
+  updatePerson(updatePersonInput: UpdatePersonInput!): Person!
+}
+
+type Person {
+  """adresse de la personne"""
+  address: String!
+
+  """date d'anniversaire de la personne"""
+  birthday: DateTime!
+
+  """genre de la personne"""
+  gender: String!
+
+  """id de la personne"""
+  id: Int!
+
+  """nom de la personne"""
+  name: String!
+}
+
+type Query {
+  person(id: Int!): Person!
+  persons: [Person!]!
+}
+
+input UpdatePersonInput {
+  """adresse de la personne"""
+  address: CreateAddressInput!
+
+  """date d'anniversaire de la personne"""
+  birthday: DateTime!
+
+  """genre de la personne"""
+  gender: String!
+
+  """id de la personne"""
+  id: String!
+
+  """nom de la personne"""
+  name: String!
+}
