@@ -12,11 +12,11 @@ export class StoresController {
   @Post()
   @ApiResponse({
     status: 200,
-    description: 'Création effectué',
+    description: 'Création du magasin',
   })
   @ApiResponse({
-    status: 400,
-    description: 'Erreur 400',
+    status: 404,
+    description: 'Page introuvable',
   })
   create(@Body() createStoreDto: CreateStoreDto) {
     const entity = this.convertDtoToEntity(createStoreDto);
@@ -24,21 +24,53 @@ export class StoresController {
   }
 
   @Get()
+  @ApiResponse({
+    status: 200,
+    description: 'Tous les magasins',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Page introuvable',
+  })
   findAll() {
     return this.storesService.findAll();
   }
 
   @Get(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'Voici le magasin demandé',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Page introuvable',
+  })
   findOne(@Param('id') id: string) {
     return this.storesService.findOne(id);
   }
 
   @Patch(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'Modification du magasin',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Page introuvable',
+  })
   update(@Param('id') id: string, @Body() updateStoreDto: UpdateStoreDto) {
     return this.storesService.update(id, updateStoreDto);
   }
 
   @Delete(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'Suppresion du magasin',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Page introuvable',
+  })
   remove(@Param('id') id: string) {
     return this.storesService.remove(id);
   }

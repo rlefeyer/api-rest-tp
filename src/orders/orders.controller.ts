@@ -14,11 +14,11 @@ export class OrdersController {
   @Post()
   @ApiResponse({
     status: 200,
-    description: 'Création effectué',
+    description: 'Création de la commande',
   })
   @ApiResponse({
-    status: 400,
-    description: 'Erreur 400',
+    status: 404,
+    description: 'Page introuvable',
   })
   create(@Body() createOrderDto: CreateOrderDto) {
     const entity = this.convertDtoToEntity(createOrderDto);
@@ -26,21 +26,53 @@ export class OrdersController {
   }
 
   @Get()
+  @ApiResponse({
+    status: 200,
+    description: 'Tous les commandes',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Page introuvable',
+  })
   findAll() {
     return this.ordersService.findAll();
   }
 
   @Get(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'Voici la commande demandée',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Page introuvable',
+  })
   findOne(@Param('id') id: string) {
     return this.ordersService.findOne(id);
   }
 
   @Patch(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'modification de la commande demandée',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Page introuvable',
+  })
   update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
     return this.ordersService.update(id, updateOrderDto);
   }
 
   @Delete(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'suppression de la commande demandée',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Page introuvable',
+  })
   remove(@Param('id') id: string) {
     return this.ordersService.remove(id);
   }
