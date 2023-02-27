@@ -1,14 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import {ApiBearerAuth, ApiResponse} from '@nestjs/swagger';
 import { Article } from './entities/article.entity'
+import { Throttle } from '@nestjs/throttler';
+import {AuthGuard} from "@nestjs/passport";
 
+@ApiBearerAuth()
 @Controller('articles')
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
 
+  @UseGuards(AuthGuard('jwt'))
+  @Throttle(10, 60)
   @Post()
   @ApiResponse({
     status: 400,
