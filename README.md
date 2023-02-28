@@ -71,3 +71,68 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Mutation effectuée et testée 
+Creation d'une adresse
+
+mutation {
+  createAddress(
+    createAddressInput: {
+      street: "Lille"
+      city: "France"
+      country: "Mauroy"
+      zipcode: 59000
+    }
+  )
+  {city, id},
+}
+
+
+Modification de l'adresse 
+
+mutation {
+  updateAddress(
+    updateAddressInput: { 
+      id: "63fdc28a6a485420b1467091"
+      street: "Vauxbuin"
+      city: "Lille"
+      country: "France"
+      zipcode: 4520
+    }
+  )
+  {id, city, country, street, zipcode}
+}
+
+Création d'une personne
+
+mutation {
+  createPerson(
+    createPersonInput: {
+      addressId: "63fdc28a6a485420b1467091"
+      birthday: "2000-05-15"
+      gender: "MALE"
+      name: "Maxime"
+    }
+  )
+  {gender, name, id}
+}
+
+## Query testée 
+
+query {
+  address(id: "63fdc28a6a485420b1467091") {
+    city
+    country
+    zipcode
+    street
+  }
+}
+
+query {
+  person(id: "63fdcce57e7f88d04e130f55") {
+    addressId
+    birthday
+    gender
+    name
+  }
+}
