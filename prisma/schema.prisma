@@ -14,6 +14,9 @@ model Person {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   birthday DateTime
+  address    Address?    @relation(fields: [addressId], references: [id])
+  addressId  String?
+  gender String
 }
 
 enum Gender {
@@ -23,9 +26,10 @@ enum Gender {
 }
 
 model Address {
- id String @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   street  String
   city    String
   country String
   zipcode Int
+  persons Person[]
 }

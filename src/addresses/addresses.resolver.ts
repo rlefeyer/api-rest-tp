@@ -1,4 +1,4 @@
-import {Args, Int, Mutation, Query, Resolver} from '@nestjs/graphql';
+import {Args, Mutation, Query, Resolver} from '@nestjs/graphql';
 import {AddressesService} from './addresses.service';
 import {Address} from './entities/address.entity';
 import {CreateAddressInput} from './dto/create-address.input';
@@ -20,7 +20,7 @@ export class AddressesResolver {
     }
 
     @Query(() => Address, {name: 'address'})
-    findOne(@Args('id', {type: () => Int}) id: string) {
+    findOne(@Args('id', {type: () => String}) id: string) {
         return this.addressesService.findOne(id);
     }
 
@@ -30,7 +30,7 @@ export class AddressesResolver {
     }
 
     @Mutation(() => Address)
-    removeAddress(@Args('id', {type: () => Int}) id: string) {
+    removeAddress(@Args('id', {type: () => String}) id: string) {
         return this.addressesService.remove(id);
     }
 }

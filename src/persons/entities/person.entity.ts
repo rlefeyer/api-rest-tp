@@ -1,11 +1,9 @@
-import {Field, Int, ObjectType} from '@nestjs/graphql';
-import {Gender} from "../gender.enum";
-import {Address} from "../../addresses/entities/address.entity";
+import {Field, ObjectType} from '@nestjs/graphql';
 
 @ObjectType()
 export class Person {
-    @Field(() => Int, {description: 'id de la personne'})
-    id: number;
+    @Field(() => String, {description: 'id de la personne'})
+    id: string;
     @Field(() => String, {description: 'nom de la personne'})
     name: string;
 
@@ -13,8 +11,8 @@ export class Person {
     birthday: Date;
 
     @Field(() => String, {description: 'genre de la personne'})
-    gender: Gender;
+    gender: string;
 
     @Field(() => String, {description: 'adresse de la personne'})
-    address: Address;
+    addressId: string;
 }

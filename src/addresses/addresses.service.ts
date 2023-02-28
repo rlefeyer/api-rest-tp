@@ -18,20 +18,25 @@ export class AddressesService {
 
     findOne(id: string) {
         return this.prisma.address.findUniqueOrThrow({
-            where: {id}
+            where: {id: id}
         });
     }
 
     update(id: string, updateAddressInput: UpdateAddressInput) {
         return this.prisma.address.update({
-            where: {id},
-            data: updateAddressInput,
+            where: {id: id},
+            data: {
+                city: updateAddressInput.city,
+                country: updateAddressInput.country,
+                street: updateAddressInput.street,
+                zipcode: updateAddressInput.zipcode,
+            },
         });
     }
 
-  remove(id: string) {
+    remove(id: string) {
         return this.prisma.address.delete({
-            where: {id}
+            where: {id: id}
         });
     }
 }

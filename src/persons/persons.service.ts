@@ -18,20 +18,21 @@ export class PersonsService {
 
     findOne(id: string) {
         return this.prisma.person.findUniqueOrThrow({
-            where: {id}
+            where: {id: id}
         });
     }
 
     update(id: string, updatePersonInput: UpdatePersonInput) {
         return this.prisma.person.update({
-            where: {id},
-            data: updatePersonInput,
-        });
+                where: {id: id},
+                data: updatePersonInput
+            }
+        );
     }
 
     remove(id: string) {
         return this.prisma.person.delete({
-            where: {id}
+            where: {id: id}
         });
     }
 }

@@ -1,7 +1,5 @@
 import {CreatePersonInput} from './create-person.input';
 import {Field, InputType, PartialType} from '@nestjs/graphql';
-import {Gender} from "../gender.enum";
-import {CreateAddressInput} from "../../addresses/dto/create-address.input";
 
 @InputType()
 export class UpdatePersonInput extends PartialType(CreatePersonInput) {
@@ -14,8 +12,8 @@ export class UpdatePersonInput extends PartialType(CreatePersonInput) {
     birthday: Date;
 
     @Field(() => String, {description: 'genre de la personne'})
-    gender: Gender;
+    gender: string;
 
-    @Field(() => CreateAddressInput, {description: 'adresse de la personne'})
-    address: CreateAddressInput;
+    @Field(() => String, {description: 'adresse de la personne'})
+    addressId: string;
 }
