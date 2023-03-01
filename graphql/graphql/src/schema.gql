@@ -1,0 +1,121 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Address {
+  """sheesh city"""
+  city: String!
+
+  """sheesh country"""
+  country: String!
+
+  """sheesh ID"""
+  id: ID!
+
+  """sheesh street"""
+  street: String!
+
+  """sheesh zipcode"""
+  zipCode: Float
+}
+
+input CreateAddressInput {
+  """sheesh city"""
+  city: String!
+
+  """sheesh country"""
+  country: String!
+
+  """sheesh street"""
+  street: String!
+
+  """sheesh zipcode"""
+  zipCode: Float!
+}
+
+input CreatePersonInput {
+  """sheesh email"""
+  address: CreateAddressInput!
+
+  """sheesh date"""
+  birthdate: DateTime!
+
+  """sheesh enum"""
+  genderEnum: genderEnum!
+
+  """sheesh name"""
+  name: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createAddress(createAddressInput: CreateAddressInput!): Address!
+  createPerson(createPersonInput: CreatePersonInput!): Person!
+  removeAddress(id: ID!): Address!
+  removePerson(id: ID!): Person!
+  updateAddress(updateAddressInput: UpdateAddressInput!): Address!
+  updatePerson(updatePersonInput: UpdatePersonInput!): Person!
+}
+
+type Person {
+  """sheesh email"""
+  address: Address!
+
+  """sheesh date"""
+  birthdate: DateTime!
+
+  """sheesh enum"""
+  genderEnum: genderEnum!
+
+  """sheesh ID"""
+  id: ID!
+
+  """sheesh name"""
+  name: String!
+}
+
+type Query {
+  Alladdress: [Address!]!
+  address(id: ID!): Address!
+  person(id: ID!): Person!
+}
+
+input UpdateAddressInput {
+  """sheesh city"""
+  city: String
+
+  """sheesh country"""
+  country: String
+  id: ID!
+
+  """sheesh street"""
+  street: String
+
+  """sheesh zipcode"""
+  zipCode: Float
+}
+
+input UpdatePersonInput {
+  """sheesh email"""
+  address: CreateAddressInput
+
+  """sheesh date"""
+  birthdate: DateTime
+
+  """sheesh enum"""
+  genderEnum: genderEnum
+  id: Int!
+
+  """sheesh name"""
+  name: String
+}
+
+enum genderEnum {
+  FEMALE
+  MALE
+  OTHER
+}
