@@ -1,0 +1,120 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Adress {
+  """La ville de la personne"""
+  city: String!
+
+  """Le pays de la personne"""
+  country: String!
+
+  """id de adresse de la personne"""
+  id: String!
+
+  """La rue de la personne"""
+  street: String!
+
+  """Le code postal de la personne"""
+  zipcode: Int!
+}
+
+input CreateAdressInput {
+  """La ville de la personne"""
+  city: String!
+
+  """Le pays de la personne"""
+  country: String!
+
+  """La rue de la personne"""
+  street: String!
+
+  """Le code postale de la personne"""
+  zipcode: Int!
+}
+
+input CreatePersonInput {
+  """Adresse de la personne"""
+  adressId: String!
+
+  """La date anniversaire de la personne"""
+  birthday: DateTime!
+
+  """Le genre de la personne"""
+  gender: String!
+
+  """Le nom de la personne"""
+  name: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createAdress(createAdressInput: CreateAdressInput!): Adress!
+  createPerson(createPersonInput: CreatePersonInput!): Person!
+  removeAdress(id: String!): Adress!
+  removePerson(id: String!): Person!
+  updateAdress(updateAdressInput: UpdateAdressInput!): Adress!
+  updatePerson(updatePersonInput: UpdatePersonInput!): Person!
+}
+
+type Person {
+  """Adresse de la personne"""
+  adressId: String!
+
+  """La date d'anniversaire de la personne"""
+  birthday: DateTime!
+
+  """Le genre de la personne"""
+  gender: String!
+
+  """Id de la personne"""
+  id: String!
+
+  """Le nom de la personne"""
+  name: String!
+}
+
+type Query {
+  adress(id: String!): Adress!
+  adresses: [Adress!]!
+  person(id: String!): Person!
+  persons: [Person!]!
+}
+
+input UpdateAdressInput {
+  """La ville de la personne"""
+  city: String!
+
+  """Le pays de la personne"""
+  country: String!
+
+  """ID de la personne"""
+  id: String!
+
+  """La rue de la personne"""
+  street: String!
+
+  """Le code postal de la personne"""
+  zipcode: Int!
+}
+
+input UpdatePersonInput {
+  """Adresse de la personne"""
+  adressId: String!
+
+  """La date d'anniversaire de la personne"""
+  birthday: DateTime!
+
+  """Le genre de la personne"""
+  gender: String!
+
+  """Id de la personne"""
+  id: String!
+
+  """Le nom de la personne"""
+  name: String!
+}
