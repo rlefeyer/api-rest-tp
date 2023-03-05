@@ -1,6 +1,7 @@
 # compiled output
 /dist
-/node_modules
+api-graphql/node_modules
+api-rest/node_modules
 
 # Logs
 logs
