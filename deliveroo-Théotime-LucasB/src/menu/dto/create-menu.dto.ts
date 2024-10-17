@@ -4,7 +4,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 export class CreateMenuDto {
   @IsOptional()
   @IsInt()
-  @ApiPropertyOptional({ description: 'The unique identifier of the menu', example: 1 })
+  @ApiProperty({ description: 'The unique identifier of the menu', example: 1 })
   id?: number;
 
   @IsString()

@@ -1,12 +1,12 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { IsString, IsInt, IsOptional } from 'class-validator';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsOptional()
   @IsInt()
-  @ApiPropertyOptional({ description: 'The unique identifier of the user', example: 1 })
+  @ApiProperty({ description: 'The unique identifier of the user', example: 1 })
   id?: number;
 
   @IsOptional()

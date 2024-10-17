@@ -1,17 +1,17 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateRestaurantDto } from './create-restaurant.dto';
 import { IsString, IsInt, IsOptional, IsNumber } from 'class-validator';
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateRestaurantDto extends PartialType(CreateRestaurantDto) {
   @IsOptional()
   @IsInt()
-  @ApiPropertyOptional({ description: 'The unique identifier of the restaurant', example: 1 })
+  @ApiProperty({ description: 'The unique identifier of the restaurant', example: 1 })
   id?: number;
 
   @IsOptional()
   @IsString()
-  @ApiPropertyOptional({ description: 'The name of the restaurant', example: 'Le Gourmet' })
+  @ApiProperty({ description: 'The name of the restaurant', example: 'Le Gourmet' })
   name?: string;
 
   @IsOptional()
@@ -21,7 +21,7 @@ export class UpdateRestaurantDto extends PartialType(CreateRestaurantDto) {
 
   @IsOptional()
   @IsString()
-  @ApiPropertyOptional({ description: 'The address of the restaurant', example: '456 Culinary Blvd' })
+  @ApiProperty({ description: 'The address of the restaurant', example: '456 Culinary Blvd' })
   address?: string;
 
   @IsOptional()
