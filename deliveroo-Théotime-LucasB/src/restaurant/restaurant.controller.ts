@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { RestaurantService } from './restaurant.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
@@ -12,39 +12,51 @@ export class RestaurantController {
 
   @Post()
   @ApiOperation({ summary: 'Create a new restaurant' })
-  @ApiResponse({ status: 201, description: 'The restaurant has been successfully created.', type: Restaurant })
-  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @ApiResponse({ status: HttpStatus.CREATED, description: 'The restaurant has been successfully created.', type: Restaurant })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request.' })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized.' })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'Internal Server Error.' })
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() createRestaurantDto: CreateRestaurantDto) {
     return this.restaurantService.create(createRestaurantDto);
   }
 
   @Get()
   @ApiOperation({ summary: 'Get all restaurants' })
-  @ApiResponse({ status: 200, description: 'Return all restaurants.', type: [Restaurant] })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Return all restaurants.', type: [Restaurant] })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized.' })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'Internal Server Error.' })
   findAll() {
     return this.restaurantService.findAll();
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get a restaurant by ID' })
-  @ApiResponse({ status: 200, description: 'Return the restaurant with the given ID.', type: Restaurant })
-  @ApiResponse({ status: 404, description: 'Restaurant not found.' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Return the restaurant with the given ID.', type: Restaurant })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Restaurant not found.' })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized.' })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'Internal Server Error.' })
   findOne(@Param('id') id: string) {
     return this.restaurantService.findOne(+id);
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update a restaurant by ID' })
-  @ApiResponse({ status: 200, description: 'The restaurant has been successfully updated.', type: Restaurant })
-  @ApiResponse({ status: 404, description: 'Restaurant not found.' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'The restaurant has been successfully updated.', type: Restaurant })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Restaurant not found.' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request.' })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized.' })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'Internal Server Error.' })
   update(@Param('id') id: string, @Body() updateRestaurantDto: UpdateRestaurantDto) {
     return this.restaurantService.update(+id, updateRestaurantDto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a restaurant by ID' })
-  @ApiResponse({ status: 200, description: 'The restaurant has been successfully deleted.' })
-  @ApiResponse({ status: 404, description: 'Restaurant not found.' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'The restaurant has been successfully deleted.' })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Restaurant not found.' })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized.' })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'Internal Server Error.' })
   remove(@Param('id') id: string) {
     return this.restaurantService.remove(+id);
   }
